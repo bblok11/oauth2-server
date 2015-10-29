@@ -111,12 +111,12 @@ class AuthCodeGrant extends AbstractGrant
     public function checkAuthorizeParams()
     {
         // Get required params
-        $clientId = $this->server->getRequest()->getQuery('client_id', null);
+        $clientId = $this->server->getRequest()->getQuery('client_id');
         if (is_null($clientId)) {
             throw new Exception\InvalidRequestException('client_id');
         }
 
-        $redirectUri = $this->server->getRequest()->getQuery('redirect_uri', null);
+        $redirectUri = $this->server->getRequest()->getQuery('redirect_uri');
         if (is_null($redirectUri)) {
             throw new Exception\InvalidRequestException('redirect_uri');
         }
@@ -134,12 +134,12 @@ class AuthCodeGrant extends AbstractGrant
             throw new Exception\InvalidClientException();
         }
 
-        $state = $this->server->getRequest()->getQuery('state', null);
+        $state = $this->server->getRequest()->getQuery('state');
         if ($this->server->stateParamRequired() === true && is_null($state)) {
             throw new Exception\InvalidRequestException('state', $redirectUri);
         }
 
-        $responseType = $this->server->getRequest()->getQuery('response_type', null);
+        $responseType = $this->server->getRequest()->getQuery('response_type');
         if (is_null($responseType)) {
             throw new Exception\InvalidRequestException('response_type', $redirectUri);
         }
@@ -150,7 +150,7 @@ class AuthCodeGrant extends AbstractGrant
         }
 
         // Validate any scopes that are in the request
-        $scopeParam = $this->server->getRequest()->getQuery('scope', '');
+        $scopeParam = $this->server->getRequest()->getQuery('scope', null, '');
         $scopes = $this->validateScopes($scopeParam, $client, $redirectUri);
 
         return [
@@ -206,18 +206,18 @@ class AuthCodeGrant extends AbstractGrant
     public function completeFlow()
     {
         // Get the required params
-        $clientId = $this->server->getRequest()->getQuery('client_id', $this->server->getRequest()->getHeader('PHP_AUTH_USER'));
+        $clientId = $this->server->getRequest()->getQuery('client_id', null, $this->server->getRequest()->getHeader('PHP_AUTH_USER'));
         if (is_null($clientId)) {
             throw new Exception\InvalidRequestException('client_id');
         }
 
-        $clientSecret = $this->server->getRequest()->getQuery('client_secret',
+        $clientSecret = $this->server->getRequest()->getQuery('client_secret', null,
             $this->server->getRequest()->getHeader('PHP_AUTH_PW'));
         if ($this->shouldRequireClientSecret() && is_null($clientSecret)) {
             throw new Exception\InvalidRequestException('client_secret');
         }
 
-        $redirectUri = $this->server->getRequest()->getQuery('redirect_uri', null);
+        $redirectUri = $this->server->getRequest()->getQuery('redirect_uri');
         if (is_null($redirectUri)) {
             throw new Exception\InvalidRequestException('redirect_uri');
         }
@@ -236,7 +236,7 @@ class AuthCodeGrant extends AbstractGrant
         }
 
         // Validate the auth code
-        $authCode = $this->server->getRequest()->getQuery('code', null);
+        $authCode = $this->server->getRequest()->getQuery('code');
         if (is_null($authCode)) {
             throw new Exception\InvalidRequestException('code');
         }
