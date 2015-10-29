@@ -12,7 +12,7 @@
 namespace League\OAuth2\Server\Exception;
 
 use League\OAuth2\Server\Util\RedirectUri;
-use Symfony\Component\HttpFoundation\Request;
+use \Phalcon\Http\Request;
 
 /**
  * Exception class
@@ -126,7 +126,7 @@ class OAuthException extends \Exception
             if ($request->getUser() !== null) {
                 $authScheme = 'Basic';
             } else {
-                $authHeader = $request->headers->get('Authorization');
+                $authHeader = $request->getHeader('Authorization');
                 if ($authHeader !== null) {
                     if (strpos($authHeader, 'Bearer') === 0) {
                         $authScheme = 'Bearer';

@@ -70,8 +70,7 @@ class SessionEntity
 
     /**
      * Session scopes
-     *
-     * @var \Symfony\Component\HttpFoundation\ParameterBag
+     * @var Array
      */
     protected $scopes;
 

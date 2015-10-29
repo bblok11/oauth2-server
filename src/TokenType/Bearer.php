@@ -11,7 +11,7 @@
 
 namespace League\OAuth2\Server\TokenType;
 
-use Symfony\Component\HttpFoundation\Request;
+use Phalcon\Http\Request;
 
 class Bearer extends AbstractTokenType implements TokenTypeInterface
 {
@@ -38,11 +38,11 @@ class Bearer extends AbstractTokenType implements TokenTypeInterface
      */
     public function determineAccessTokenInHeader(Request $request)
     {
-        if ($request->headers->has('Authorization') === false) {
+        if (!$request->getHeader('Authorization')) {
             return;
         }
 
-        $header = $request->headers->get('Authorization');
+        $header = $request->getHeader('Authorization');
 
         if (substr($header, 0, 7) !== 'Bearer ') {
             return;

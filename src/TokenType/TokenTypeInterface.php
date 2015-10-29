@@ -13,7 +13,7 @@ namespace League\OAuth2\Server\TokenType;
 
 use League\OAuth2\Server\AbstractServer;
 use League\OAuth2\Server\Entity\SessionEntity;
-use Symfony\Component\HttpFoundation\Request;
+use Phalcon\Http\Request;
 
 interface TokenTypeInterface
 {
@@ -60,7 +60,7 @@ interface TokenTypeInterface
     /**
      * Determine the access token in the authorization header
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Phalcon\Http\Request $request
      *
      * @return string
      */

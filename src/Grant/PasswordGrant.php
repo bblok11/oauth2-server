@@ -90,13 +90,13 @@ class PasswordGrant extends AbstractGrant
     public function completeFlow()
     {
         // Get the required params
-        $clientId = $this->server->getRequest()->request->get('client_id', $this->server->getRequest()->getUser());
+        $clientId = $this->server->getRequest()->getQuery('client_id', $this->server->getRequest()->getHeader('PHP_AUTH_USER'));
         if (is_null($clientId)) {
             throw new Exception\InvalidRequestException('client_id');
         }
 
-        $clientSecret = $this->server->getRequest()->request->get('client_secret',
-            $this->server->getRequest()->getPassword());
+        $clientSecret = $this->server->getRequest()->getQuery('client_secret',
+            $this->server->getRequest()->getHeader('PHP_AUTH_PW'));
         if (is_null($clientSecret)) {
             throw new Exception\InvalidRequestException('client_secret');
         }
@@ -114,12 +114,12 @@ class PasswordGrant extends AbstractGrant
             throw new Exception\InvalidClientException();
         }
 
-        $username = $this->server->getRequest()->request->get('username', null);
+        $username = $this->server->getRequest()->getQuery('username', null);
         if (is_null($username)) {
             throw new Exception\InvalidRequestException('username');
         }
 
-        $password = $this->server->getRequest()->request->get('password', null);
+        $password = $this->server->getRequest()->getQuery('password', null);
         if (is_null($password)) {
             throw new Exception\InvalidRequestException('password');
         }
@@ -133,7 +133,7 @@ class PasswordGrant extends AbstractGrant
         }
 
         // Validate any scopes that are in the request
-        $scopeParam = $this->server->getRequest()->request->get('scope', '');
+        $scopeParam = $this->server->getRequest()->getQuery('scope', '');
         $scopes = $this->validateScopes($scopeParam, $client);
 
         // Create a new session

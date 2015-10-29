@@ -25,72 +25,60 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * OAuth 2.0 Resource Server
  */
+
 abstract class AbstractServer
 {
     /**
      * The request object
      *
-     * @var \Symfony\Component\HttpFoundation\Request
+     * @var \Phalcon\Http\Request
      */
     protected $request;
 
     /**
      * Session storage
-     *
      * @var \League\OAuth2\Server\Storage\SessionInterface
      */
     protected $sessionStorage;
 
     /**
      * Access token storage
-     *
      * @var \League\OAuth2\Server\Storage\AccessTokenInterface
      */
     protected $accessTokenStorage;
 
     /**
      * Refresh token storage
-     *
      * @var \League\OAuth2\Server\Storage\RefreshTokenInterface
      */
     protected $refreshTokenStorage;
 
     /**
      * Auth code storage
-     *
      * @var \League\OAuth2\Server\Storage\AuthCodeInterface
      */
     protected $authCodeStorage;
 
     /**
      * Scope storage
-     *
      * @var \League\OAuth2\Server\Storage\ScopeInterface
      */
     protected $scopeStorage;
 
     /**
      * Client storage
-     *
      * @var \League\OAuth2\Server\Storage\ClientInterface
      */
     protected $clientStorage;
 
     /**
-     * @var \League\OAuth2\Server\Storage\MacTokenInterface
-     */
-    protected $macStorage;
-
-    /**
      * Token type
-     *
      * @var \League\OAuth2\Server\TokenType\TokenTypeInterface
      */
     protected $tokenType;
 
     /**
      * Event emitter
-     *
      * @var \League\Event\Emitter
      */
     protected $eventEmitter;
@@ -141,9 +129,7 @@ abstract class AbstractServer
 
     /**
      * Sets the Request Object
-     *
-     * @param \Symfony\Component\HttpFoundation\Request The Request Object
-     *
+     * @param \Phalcon\Http\Request The Request Object
      * @return self
      */
     public function setRequest($request)
@@ -155,23 +141,16 @@ abstract class AbstractServer
 
     /**
      * Gets the Request object. It will create one from the globals if one is not set.
-     *
-     * @return \Symfony\Component\HttpFoundation\Request
+     * @return \Phalcon\Http\Request
      */
     public function getRequest()
     {
-        if ($this->request === null) {
-            $this->request = Request::createFromGlobals();
-        }
-
         return $this->request;
     }
 
     /**
      * Set the client storage
-     *
-     * @param \League\OAuth2\Server\Storage\ClientInterface $storage
-     *
+     * @param  \League\OAuth2\Server\Storage\ClientInterface $storage
      * @return self
      */
     public function setClientStorage(ClientInterface $storage)

@@ -138,12 +138,12 @@ class ResourceServer extends AbstractServer
      */
     public function determineAccessToken($headerOnly = false)
     {
-        if ($this->getRequest()->headers->get('Authorization') !== null) {
+        if ($this->getRequest()->getHeader('Authorization') || $this->getRequest()->getHeader('AUTHORIZATION')) {
             $accessToken = $this->getTokenType()->determineAccessTokenInHeader($this->getRequest());
         } elseif ($headerOnly === false && (! $this->getTokenType() instanceof MAC)) {
-            $accessToken = ($this->getRequest()->server->get('REQUEST_METHOD') === 'GET')
-                                ? $this->getRequest()->query->get($this->tokenKey)
-                                : $this->getRequest()->request->get($this->tokenKey);
+            $accessToken = ($this->getRequest()->getMethod() == 'GET')
+                ? $this->getRequest()->getQuery($this->tokenKey)
+                : $this->getRequest()->getQuery($this->tokenKey);
         }
 
         if (empty($accessToken)) {

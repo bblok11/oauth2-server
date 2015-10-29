@@ -12,21 +12,19 @@
 namespace League\OAuth2\Server\Event;
 
 use League\Event\AbstractEvent;
-use Symfony\Component\HttpFoundation\Request;
+use \Phalcon\Http\Request;
 
 class ClientAuthenticationFailedEvent extends AbstractEvent
 {
     /**
      * Request
-     *
-     * @var \Symfony\Component\HttpFoundation\Request
+     * @var \Phalcon\Http\Request
      */
     private $request;
 
     /**
      * Init the event with a request
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Phalcon\Http\Request $request
      */
     public function __construct(Request $request)
     {
@@ -45,8 +43,7 @@ class ClientAuthenticationFailedEvent extends AbstractEvent
 
     /**
      * Return request
-     *
-     * @return \Symfony\Component\HttpFoundation\Request
+     * @return \Phalcon\Http\Request
      */
     public function getRequest()
     {

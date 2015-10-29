@@ -1,4 +1,5 @@
 # PHP OAuth 2.0 Server by [@alexbilbie](https://twitter.com/alexbilbie)
+# Fork: Symfony HTTP foundation replaced by Phalcon Request object 
 
 [![Latest Version](http://img.shields.io/packagist/v/league/oauth2-server.svg?style=flat-square)](https://github.com/thephpleague/oauth2-server/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
